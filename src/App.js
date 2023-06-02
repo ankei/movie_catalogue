@@ -1,4 +1,5 @@
 import { Lightning, Utils } from '@lightningjs/sdk'
+import { Splash } from './pages'
 
 export default class App extends Lightning.Component {
   static getFonts() {
@@ -7,46 +8,38 @@ export default class App extends Lightning.Component {
 
   static _template() {
     return {
-      Background: {
-        w: 1920,
-        h: 1080,
-        color: 0xfffbb03b,
-        src: Utils.asset('images/background.png'),
-      },
-      Logo: {
-        mountX: 0.5,
-        mountY: 1,
-        x: 960,
-        y: 600,
-        src: Utils.asset('images/logo.png'),
-      },
-      Text: {
-        mount: 0.5,
-        x: 960,
-        y: 720,
-        text: {
-          text: "Let's start Building!",
-          fontFace: 'Regular',
-          fontSize: 64,
-          textColor: 0xbbffffff,
-        },
+      rect: true,
+      color: 0xff000000,
+      w: 1920,
+      h: 1080,
+      Splash: {
+        type: Splash,
+        signals: { loaded: true }, // tells parent component about event
+        alpha: 0,
       },
     }
   }
 
-  _init() {
-    this.tag('Background')
-      .animation({
-        duration: 15,
-        repeat: -1,
-        actions: [
-          {
-            t: '',
-            p: 'color',
-            v: { 0: { v: 0xfffbb03b }, 0.5: { v: 0xfff46730 }, 0.8: { v: 0xfffbb03b } },
-          },
-        ],
-      })
-      .start()
+  _setup() {
+    this._setState('Splash')
   }
+
+  static _states() {
+    return [
+      class Splash extends this {
+        $enter() {
+          this.tag('Splash').setSmooth('alpha', 1)
+        }
+        $exit() {
+          this.tag('Splash').setSmooth('alpha', 0)
+        }
+        // refers to the loaded signal in the Splash page
+        loaded() {
+          this._setState('Main')
+        }
+      },
+    ]
+  }
+
+  _init() {}
 }
