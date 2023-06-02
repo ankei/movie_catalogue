@@ -1,0 +1,6 @@
+{
+  "name": "movie_catalogue",
+  "identifier": "com.domain.app.moviecatalogue",
+  "version": "1.0.0",
+  "icon": "./static/icon.png"
+}
