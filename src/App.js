@@ -1,5 +1,5 @@
 import { Lightning, Utils } from '@lightningjs/sdk'
-import { Splash } from './pages'
+import { Splash, Main } from './pages'
 
 export default class App extends Lightning.Component {
   static getFonts() {
@@ -17,6 +17,10 @@ export default class App extends Lightning.Component {
         signals: { loaded: true }, // tells parent component about event
         alpha: 0,
       },
+      Main: {
+        type: Main,
+        alpha: 0,
+      },
     }
   }
 
@@ -27,15 +31,33 @@ export default class App extends Lightning.Component {
   static _states() {
     return [
       class Splash extends this {
+        // shows and hides Splash when entering/exiting state
         $enter() {
           this.tag('Splash').setSmooth('alpha', 1)
         }
         $exit() {
           this.tag('Splash').setSmooth('alpha', 0)
         }
-        // refers to the loaded signal in the Splash page
+        // function called when loaded signal sent by component
         loaded() {
           this._setState('Main')
+        }
+      },
+      class Main extends this {
+        $enter() {
+          // patching changes properties of an existing element in the template
+          this.tag('Main').patch({
+            smooth: { alpha: 1, y: 0 },
+          })
+        }
+        $exit() {
+          this.tag('Main').patch({
+            smooth: { alpha: 0, y: 100 },
+          })
+        }
+        // makes the Main component the "active" component and handles key events
+        _getFocused() {
+          return this.tag('Main')
         }
       },
     ]
