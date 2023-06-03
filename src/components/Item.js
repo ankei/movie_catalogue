@@ -3,19 +3,20 @@ import { Lightning, Utils } from '@lightningjs/sdk'
 export default class Item extends Lightning.Component {
   static _template() {
     return {
-      content: {
+      Content: {
         w: Item.width,
         h: Item.height,
         Poster: {
           texture: {
             type: Lightning.textures.ImageTexture,
-            src: Utils.asset('movie_poster.jpg'),
+            src: Utils.asset('images/movie_poster.jpg'),
             resizeMode: { type: 'contain', w: Item.width, h: Item.height },
           },
         },
         Title: {
           text: {
-            text: 'Movie Title',
+            text: this.bindProp('movie'),
+            // text: '',
             fontFace: 'Regular',
             fontSize: 30,
             textColor: 0xbbffffff,

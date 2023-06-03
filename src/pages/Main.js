@@ -1,6 +1,4 @@
 import { Lightning } from '@lightningjs/sdk'
-import { Grid } from '@lightningjs/ui'
-import Item from '../components/Item'
 import { PosterMenu } from '../components'
 
 export default class Main extends Lightning.Component {
@@ -13,21 +11,12 @@ export default class Main extends Lightning.Component {
         text: { text: 'Movie Catalogue', fontFace: 'Regular', textColor: 0xbbffffff },
       },
       PosterMenu: {
-        x: 600,
-        y: 400,
         type: PosterMenu,
-        contents: [{ label: 'Movie 1' }, { label: 'Movie 2' }],
+        x: 300,
+        y: 300,
+        mount: 0.5,
       },
     }
-  }
-  set contents(v) {
-    this.tag('Contents').children = v.map((el, idx) => {
-      return { type: Item, label: el.label, y: idx * 90 }
-    })
-  }
-
-  get contents() {
-    return this.tag('Contents').children
   }
 
   _init() {}
