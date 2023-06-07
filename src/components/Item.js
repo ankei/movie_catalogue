@@ -15,7 +15,6 @@ export default class Item extends Lightning.Component {
         },
         Title: {
           rect: true,
-
           text: {
             text: this.bindProp('movie'),
             fontFace: 'Regular',

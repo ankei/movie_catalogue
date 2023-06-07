@@ -8,15 +8,16 @@ export default class PosterMenu extends Lightning.Component {
       Contents: {
         x: 30,
       },
-      // Content: {
+
       // Grid: {
       //     type: Grid,
       //     itemType: Item,
       //     x: 90,
-      //     y: 200, w: 1740, h: 850,
+      //     y: 200,
+      //     w: 1740,
+      //     h: 850,
       //     spacing: 30,
       //     rows: 2,
-      // }
       // }
     }
   }
